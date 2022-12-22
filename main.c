@@ -28,8 +28,7 @@ typedef enum TokenType
 typedef struct Token
 {
     TokenType type;
-    int intValue;
-    float floatValue;
+    double value;
 } Token;
 
 Token *bufferToList(char *expression, Token *);
@@ -80,11 +79,11 @@ Token *bufferToList(char *expression, Token *tokenArray)
             tokenArray[tokenIndex] = token;
             tokenIndex++;
             break;
+        default:
+            // parse number
+            break;
         }
     }
 
-#ifdef DEBUG
-    printf("%c", *currentChar);
-#endif
     return tokenArray;
 }
