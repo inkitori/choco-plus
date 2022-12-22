@@ -97,6 +97,8 @@ all: $(TARGET).hex
 debug:
 	@echo
 	@echo "Source files:"   $(SOURCES)
+	@echo "Object files:"   $(OBJECTS)
+	@echo "Header files:"   $(HEADERS)
 	@echo "MCU, F_CPU, BAUD:"  $(MCU), $(F_CPU), $(BAUD)
 	@echo	
 
@@ -112,13 +114,13 @@ disasm: disassemble
 size:  $(TARGET).elf
 	$(AVRSIZE) -C --mcu=$(MCU) $(TARGET).elf
 
-clean:
-	del $(TARGET).elf $(TARGET).hex $(TARGET).obj \
-	$(TARGET).o $(TARGET).d $(TARGET).eep $(TARGET).lst \
-	$(TARGET).lss $(TARGET).sym $(TARGET).map $(TARGET)~ \
-	$(TARGET).eeprom
+# clean:
+# 	del $(TARGET).elf $(TARGET).hex $(TARGET).obj \
+# 	$(TARGET).o $(TARGET).d $(TARGET).eep $(TARGET).lst \
+# 	$(TARGET).lss $(TARGET).sym $(TARGET).map $(TARGET)~ \
+# 	$(TARGET).eeprom
 
-squeaky_clean:
+clean:
 	del *.elf *.hex *.obj *.o *.d *.eep *.lst *.lss *.sym *.map *~ *.eeprom
 
 ##########------------------------------------------------------##########
