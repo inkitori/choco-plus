@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_STACK_SIZE 128
+
 typedef enum TokenType
 {
     PLUS,
@@ -30,20 +32,22 @@ typedef struct Token
     float floatValue;
 } Token;
 
-Token *bufferToList(char *expression);
+Token *bufferToList(char *expression, Token *);
 
 int main()
 {
     char *expressionBuffer = "^+/";
-    Token *tokens = bufferToList(expressionBuffer);
+
+    Token tokenArray[MAX_STACK_SIZE];
+
+    Token *tokens = bufferToList(expressionBuffer, tokenArray);
     printf("%d", tokens[0].type);
 }
 
-Token *bufferToList(char *expression)
+Token *bufferToList(char *expression, Token *tokenArray)
 {
     char *currentChar;
 
-    Token *tokenArray = (Token *)malloc(sizeof(Token) * strlen(expression));
     int tokenIndex = 0;
 
     for (currentChar = expression; *currentChar != '\0'; currentChar++)
