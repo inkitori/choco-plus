@@ -9,7 +9,10 @@
 #include <stdio.h>
 #endif
 
-typedef enum TokenTypes
+#include <stdlib.h>
+#include <string.h>
+
+typedef enum TokenType
 {
     PLUS,
     MINUS,
@@ -18,48 +21,66 @@ typedef enum TokenTypes
     POW,
     INT,
     FLOAT
-} TokenTypes;
+} TokenType;
 
 typedef struct Token
 {
-
+    TokenType type;
     int intValue;
     float floatValue;
 } Token;
 
-typedef struct TokenList
-{
-    Token value;
-
-    struct TokenList *next;
-} TokenList;
-
-TokenList *bufferToList(char *expression);
+Token *bufferToList(char *expression);
 
 int main()
 {
-    char *expressionBuffer = "5*4+3/2";
-    bufferToList(expressionBuffer);
+    char *expressionBuffer = "^+/";
+    Token *tokens = bufferToList(expressionBuffer);
+    printf("%d", tokens[0].type);
 }
 
-TokenList *bufferToList(char *expression)
+Token *bufferToList(char *expression)
 {
     char *currentChar;
+
+    Token *tokenArray = (Token *)malloc(sizeof(Token) * strlen(expression));
+    int tokenIndex = 0;
+
     for (currentChar = expression; *currentChar != '\0'; currentChar++)
     {
+        Token token;
         switch (*currentChar)
         {
         case '+':
+            token.type = PLUS;
+            tokenArray[tokenIndex] = token;
+            tokenIndex++;
             break;
         case '-':
+            token.type = MINUS;
+            tokenArray[tokenIndex] = token;
+            tokenIndex++;
             break;
         case '*':
+            token.type = MUL;
+            tokenArray[tokenIndex] = token;
+            tokenIndex++;
             break;
         case '/':
+            token.type = DIV;
+            tokenArray[tokenIndex] = token;
+            tokenIndex++;
+            break;
+        case '^':
+            token.type = POW;
+            tokenArray[tokenIndex] = token;
+            tokenIndex++;
             break;
         }
-#ifdef DEBUG
-        printf("%c", *currentChar);
-#endif
     }
+
+#ifdef DEBUG
+    printf("%c", *currentChar);
+#endif
+    return tokenArray;
 }
