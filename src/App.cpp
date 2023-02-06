@@ -1,16 +1,5 @@
-#define DEBUG
-
-#ifndef DEBUG
-#include <avr/io.h>
-#include <util/delay.h>
-#endif
-
-#ifdef DEBUG
-#include <stdio.h>
-#endif
-
-#include <stdlib.h>
-#include <string.h>
+#include <iostream>
+#include <string>
 
 #define MAX_STACK_SIZE 128
 
@@ -35,7 +24,7 @@ Token *bufferToList(char *expression, Token *);
 
 int main()
 {
-    char *expressionBuffer = "^+/";
+    std::string expressionBuffer = "^+/";
 
     Token tokenArray[MAX_STACK_SIZE];
 
@@ -43,12 +32,13 @@ int main()
     printf("%d", tokens[0].type);
 }
 
-Token *bufferToList(char *expression, Token *tokenArray)
+Token *bufferToList(std::string expression, Token *tokenArray)
 {
     char *currentChar;
 
     int tokenIndex = 0;
 
+    // TODO: check for input going above MAX_STACK_SIZE
     for (currentChar = expression; *currentChar != '\0'; currentChar++)
     {
         Token token;
@@ -86,4 +76,11 @@ Token *bufferToList(char *expression, Token *tokenArray)
     }
 
     return tokenArray;
+}
+
+namespace App
+{
+    void Run()
+    {
+    }
 }
