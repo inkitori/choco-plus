@@ -1,16 +1,15 @@
 #pragma once
 
-#include "Input.hpp"
-#include "Output.hpp"
+#include "IO.hpp"
+#include <memory>
 
 class App
 {
 public:
-	App(Input input, Output output)
-	{
-	}
+	App(std::unique_ptr<IO> io);
 
 	void Run();
 
 private:
+	std::unique_ptr<IO> io;
 };
