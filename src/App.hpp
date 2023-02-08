@@ -1,7 +1,9 @@
 #pragma once
 
-#include "IO.hpp"
 #include <memory>
+
+#include "Application.hpp"
+#include "IO.hpp"
 
 class App
 {
@@ -12,4 +14,5 @@ public:
 
 private:
 	std::unique_ptr<IO> io;
+	Application currentProcess;
 };

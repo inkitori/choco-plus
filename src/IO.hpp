@@ -1,13 +1,19 @@
 #pragma once
 
 #include <iostream>
+#include "InputToken.hpp"
 
 class IO
 {
 public:
 	virtual ~IO() {}
-	virtual void Poll()
+	virtual InputToken PollInput()
 	{
-		std::cout << "Shouldn't be getting called";
+		return InputToken::ERROR_INPUT;
 	}
+
+	virtual void ClearScreen() {}
+	virtual void WriteChar(int c) {}
+	virtual void WriteString(std::string str) {}
+	virtual void MoveCursor(int x, int y) {}
 };

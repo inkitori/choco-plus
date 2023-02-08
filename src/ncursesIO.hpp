@@ -8,5 +8,9 @@ public:
 	ncursesIO();
 	~ncursesIO() override;
 
-	void Poll() override;
+	InputToken PollInput() override;
+	void ClearScreen() override;
+	void WriteChar(int c) override;
+	void WriteString(std::string str) override;
+	void MoveCursor(int x, int y) override;
 };
