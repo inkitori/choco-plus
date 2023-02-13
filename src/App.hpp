@@ -14,5 +14,5 @@ public:
 
 private:
 	std::unique_ptr<IO> io;
-	Application currentProcess;
+	std::unique_ptr<Application> currentProcess;
 };

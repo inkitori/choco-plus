@@ -1,6 +1,6 @@
 #pragma once
 
-typedef enum class InputToken
+typedef enum class InputEnum
 {
 	ZERO,
 	ONE,
@@ -23,3 +23,24 @@ typedef enum class InputToken
 	NO_INPUT,
 	ERROR_INPUT
 } InputToken;
+
+typedef struct InputToken
+{
+	InputEnum inputEnum;
+	std::string stringRepresentation;
+} InputToken;
+
+typedef enum class MathEnum
+{
+	NUMBER,
+	OPERATOR,
+	FUNCTION,
+	LEFT_PAREN,
+	RIGHT_PAREN
+} MathEnum;
+
+typedef struct MathToken
+{
+	MathEnum type;
+	int numericValue;
+} MathToken;

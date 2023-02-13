@@ -7,9 +7,9 @@ class IO
 {
 public:
 	virtual ~IO() {}
-	virtual InputToken PollInput()
+	virtual InputEnum PollInput()
 	{
-		return InputToken::ERROR_INPUT;
+		return InputEnum::ERROR_INPUT;
 	}
 
 	virtual void ClearScreen() {}

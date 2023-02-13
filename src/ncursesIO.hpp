@@ -8,7 +8,7 @@ public:
 	ncursesIO();
 	~ncursesIO() override;
 
-	InputToken PollInput() override;
+	InputEnum PollInput() override;
 	void ClearScreen() override;
 	void WriteChar(int c) override;
 	void WriteString(std::string str) override;

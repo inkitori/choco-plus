@@ -14,46 +14,48 @@ ncursesIO::~ncursesIO()
 	endwin();
 }
 
-InputToken ncursesIO::PollInput()
+InputEnum ncursesIO::PollInput()
 {
 	int ch = getch();
 
 	switch (ch)
 	{
 	case '1':
-		return InputToken::ONE;
+		return InputEnum::ONE;
 	case '2':
-		return InputToken::TWO;
+		return InputEnum::TWO;
 	case '3':
-		return InputToken::THREE;
+		return InputEnum::THREE;
 	case '4':
-		return InputToken::FOUR;
+		return InputEnum::FOUR;
 	case '5':
-		return InputToken::FIVE;
+		return InputEnum::FIVE;
 	case '6':
-		return InputToken::SIX;
+		return InputEnum::SIX;
 	case '7':
-		return InputToken::SEVEN;
+		return InputEnum::SEVEN;
 	case '8':
-		return InputToken::EIGHT;
+		return InputEnum::EIGHT;
 	case '9':
-		return InputToken::NINE;
+		return InputEnum::NINE;
 	case '0':
-		return InputToken::ZERO;
+		return InputEnum::ZERO;
 	case '\'':
-		return InputToken::ADD;
+		return InputEnum::ADD;
 	case ',':
-		return InputToken::SUB;
+		return InputEnum::SUB;
 	case '.':
-		return InputToken::MUL;
+		return InputEnum::MUL;
 	case 'p':
-		return InputToken::DIV;
+		return InputEnum::DIV;
 	case 'y':
-		return InputToken::NEG;
+		return InputEnum::NEG;
+	case KEY_ENTER:
+		return InputEnum::ENTER;
 	case ERR:
-		return InputToken::NO_INPUT;
+		return InputEnum::NO_INPUT;
 	default:
-		return InputToken::ERROR_INPUT;
+		return InputEnum::ERROR_INPUT;
 	}
 }
 
