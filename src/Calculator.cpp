@@ -10,49 +10,49 @@
 double Calculator::ComputeInput(std::vector<MathToken> tokenInputs)
 {
 	std::queue<MathToken> outputQueue = GeneratePostfix(tokenInputs);
-	while (!outputQueue.empty())
-	{
-		MathToken token = outputQueue.front();
-		if (token.type == MathEnum::NUMBER)
-		{
-			std::cout << std::to_string(token.numericValue) << std::endl;
-		}
-		else if (MathToken::IsOperator(token))
-		{
-			if (token.type == MathEnum::ADD)
-			{
-				std::cout << "add" << std::endl;
-			}
-			else if (token.type == MathEnum::SUB)
-			{
-				std::cout << "sub" << std::endl;
-			}
-			else if (token.type == MathEnum::MUL)
-			{
-				std::cout << "mul" << std::endl;
-			}
-			else if (token.type == MathEnum::DIV)
-			{
-				std::cout << "div" << std::endl;
-			}
-			else if (token.type == MathEnum::POW)
-			{
-				std::cout << "pow" << std::endl;
-			}
-			else
-			{
-				std::cout << "unknown op" << std::endl;
-			}
-		}
-		else
-		{
-			std::cout << "what is this" << std::endl;
-		}
+	// while (!outputQueue.empty())
+	// {
+	// 	MathToken token = outputQueue.front();
+	// 	if (token.type == MathEnum::NUMBER)
+	// 	{
+	// 		std::cout << std::to_string(token.numericValue) << std::endl;
+	// 	}
+	// 	else if (MathToken::IsOperator(token))
+	// 	{
+	// 		if (token.type == MathEnum::ADD)
+	// 		{
+	// 			std::cout << "add" << std::endl;
+	// 		}
+	// 		else if (token.type == MathEnum::SUB)
+	// 		{
+	// 			std::cout << "sub" << std::endl;
+	// 		}
+	// 		else if (token.type == MathEnum::MUL)
+	// 		{
+	// 			std::cout << "mul" << std::endl;
+	// 		}
+	// 		else if (token.type == MathEnum::DIV)
+	// 		{
+	// 			std::cout << "div" << std::endl;
+	// 		}
+	// 		else if (token.type == MathEnum::POW)
+	// 		{
+	// 			std::cout << "pow" << std::endl;
+	// 		}
+	// 		else
+	// 		{
+	// 			std::cout << "unknown op" << std::endl;
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		std::cout << "what is this" << std::endl;
+	// 	}
 
-		outputQueue.pop();
-	}
-	// return EvaluatePostfix(GeneratePostfix(tokenInputs));
-	return 0;
+	// 	outputQueue.pop();
+	// }
+	return EvaluatePostfix(GeneratePostfix(tokenInputs));
+	// return 0;
 }
 
 std::queue<MathToken> Calculator::GeneratePostfix(std::vector<MathToken> tokenInputs)
