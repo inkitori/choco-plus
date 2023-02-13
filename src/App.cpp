@@ -5,7 +5,7 @@
 
 App::App(std::unique_ptr<IO> _io) : io(std::move(_io))
 {
-    // currentProcess = std::make_unique<CalculatorApplication>(io);
+    // currentProcess = std::make_unique<CalculatorApplication>();
 }
 
 void App::Run()

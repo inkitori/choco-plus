@@ -5,7 +5,7 @@
 #include "InputToken.hpp"
 
 #include <memory>
-#include <array>
+#include <vector>
 
 int main()
 {
@@ -14,6 +14,6 @@ int main()
 	App app(std::move(io));
 	// app.Run();
 
-	std::array<MathToken, 128> tokens = {MathToken::GetNumber(3), MathToken::GetAdd(), MathToken::GetNumber(4), MathToken::GetMul(), MathToken::GetNumber(2), MathToken::GetDiv(), MathToken::GetLeftParen(), MathToken::GetNumber(1), MathToken::GetSub(), MathToken::GetNumber(5), MathToken::GetRightParen(), MathToken::GetPow(), MathToken::GetNumber(2), MathToken::GetPow(), MathToken::GetNumber(3)};
-	Calculator::ComputeInput(tokens);
+	std::vector<MathToken> tokens = {MathToken::GetNumber(3), MathToken::GetAdd(), MathToken::GetNumber(4), MathToken::GetDiv(), MathToken::GetNumber(2)};
+	std::cout << "Output value is: " << std::to_string(Calculator::ComputeInput(tokens)) << std::endl;
 }

@@ -3,16 +3,64 @@
 #include <iostream>
 #include <stack>
 #include <queue>
+#include <cmath>
 
 #include <assert.h>
 
-// shunting yard implementation
-double Calculator::ComputeInput(std::array<MathToken, MAX_INPUT_SIZE> tokenInputs)
+double Calculator::ComputeInput(std::vector<MathToken> tokenInputs)
+{
+	std::queue<MathToken> outputQueue = GeneratePostfix(tokenInputs);
+	while (!outputQueue.empty())
+	{
+		MathToken token = outputQueue.front();
+		if (token.type == MathEnum::NUMBER)
+		{
+			std::cout << std::to_string(token.numericValue) << std::endl;
+		}
+		else if (MathToken::IsOperator(token))
+		{
+			if (token.type == MathEnum::ADD)
+			{
+				std::cout << "add" << std::endl;
+			}
+			else if (token.type == MathEnum::SUB)
+			{
+				std::cout << "sub" << std::endl;
+			}
+			else if (token.type == MathEnum::MUL)
+			{
+				std::cout << "mul" << std::endl;
+			}
+			else if (token.type == MathEnum::DIV)
+			{
+				std::cout << "div" << std::endl;
+			}
+			else if (token.type == MathEnum::POW)
+			{
+				std::cout << "pow" << std::endl;
+			}
+			else
+			{
+				std::cout << "unknown op" << std::endl;
+			}
+		}
+		else
+		{
+			std::cout << "what is this" << std::endl;
+		}
+
+		outputQueue.pop();
+	}
+	// return EvaluatePostfix(GeneratePostfix(tokenInputs));
+	return 0;
+}
+
+std::queue<MathToken> Calculator::GeneratePostfix(std::vector<MathToken> tokenInputs)
 {
 	std::stack<MathToken> operatorStack;
 	std::queue<MathToken> outputQueue;
 
-	for (unsigned int i = 0; i < 15; i++)
+	for (unsigned int i = 0; i < tokenInputs.size(); i++)
 	{
 		MathToken token = tokenInputs.at(i);
 		if (token.type == MathEnum::NUMBER)
@@ -23,7 +71,7 @@ double Calculator::ComputeInput(std::array<MathToken, MAX_INPUT_SIZE> tokenInput
 		{
 			operatorStack.push(token);
 		}
-		else if (token.type == MathEnum::OPERATOR)
+		else if (MathToken::IsOperator(token))
 		{
 			while (!operatorStack.empty() && operatorStack.top().type != MathEnum::LEFT_PAREN && operatorStack.top().precedence >= token.precedence)
 			{
@@ -57,47 +105,52 @@ double Calculator::ComputeInput(std::array<MathToken, MAX_INPUT_SIZE> tokenInput
 		operatorStack.pop();
 	}
 
-	while (!outputQueue.empty())
+	return outputQueue;
+}
+
+double Calculator::EvaluatePostfix(std::queue<MathToken> postfixQueue)
+{
+	std::stack<MathToken> postfixStack;
+
+	while (!postfixQueue.empty())
 	{
-		MathToken token = outputQueue.front();
+		MathToken token = postfixQueue.front();
+		postfixQueue.pop();
+
 		if (token.type == MathEnum::NUMBER)
 		{
-			std::cout << std::to_string(token.numericValue) << std::endl;
+			postfixStack.push(token);
 		}
-		else if (token.type == MathEnum::OPERATOR)
+		else if (MathToken::IsOperator(token))
 		{
-			if (token.op == MathEnum::ADD)
-			{
-				std::cout << "add" << std::endl;
-			}
-			else if (token.op == MathEnum::SUB)
-			{
-				std::cout << "sub" << std::endl;
-			}
-			else if (token.op == MathEnum::MUL)
-			{
-				std::cout << "mul" << std::endl;
-			}
-			else if (token.op == MathEnum::DIV)
-			{
-				std::cout << "div" << std::endl;
-			}
-			else if (token.op == MathEnum::POW)
-			{
-				std::cout << "pow" << std::endl;
-			}
-			else
-			{
-				std::cout << "unknown op" << std::endl;
-			}
-		}
-		else
-		{
-			std::cout << "what is this" << std::endl;
-		}
+			MathToken leftOp = postfixStack.top();
+			postfixStack.pop();
 
-		outputQueue.pop();
+			MathToken rightOp = postfixStack.top();
+			postfixStack.pop();
+
+			if (token.type == MathEnum::ADD)
+			{
+				postfixStack.push(MathToken::GetNumber(leftOp.numericValue + rightOp.numericValue));
+			}
+			else if (token.type == MathEnum::SUB)
+			{
+				postfixStack.push(MathToken::GetNumber(leftOp.numericValue - rightOp.numericValue));
+			}
+			else if (token.type == MathEnum::MUL)
+			{
+				postfixStack.push(MathToken::GetNumber(leftOp.numericValue * rightOp.numericValue));
+			}
+			else if (token.type == MathEnum::DIV)
+			{
+				postfixStack.push(MathToken::GetNumber(leftOp.numericValue / rightOp.numericValue));
+			}
+			else if (token.type == MathEnum::POW)
+			{
+				postfixStack.push(MathToken::GetNumber(pow(leftOp.numericValue, rightOp.numericValue)));
+			}
+		}
 	}
 
-	return 0;
+	return postfixStack.top().numericValue;
 }

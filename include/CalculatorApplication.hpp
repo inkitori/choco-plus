@@ -6,7 +6,7 @@
 class CalculatorApplication : public Application
 {
 public:
-	CalculatorApplication(IO io);
+	// CalculatorApplication();
 	void OnBoot() override;
 	void Update() override;
 	void OnInput(InputToken) override;

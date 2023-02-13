@@ -35,7 +35,6 @@ typedef struct InputToken
 typedef enum class MathEnum
 {
 	NUMBER,
-	OPERATOR,
 	FUNCTION,
 	LEFT_PAREN,
 	RIGHT_PAREN,
@@ -52,46 +51,49 @@ public:
 	MathEnum type;
 	double numericValue;
 	int precedence;
-	MathEnum op;
 
 	static MathToken GetNumber(double number)
 	{
-		return MathToken{MathEnum::NUMBER, number, 0, MathEnum::NUMBER};
+		return MathToken{MathEnum::NUMBER, number, 0};
 	}
 
 	static MathToken GetAdd()
 	{
-		return MathToken{MathEnum::OPERATOR, 0, 0, MathEnum::ADD};
+		return MathToken{MathEnum::ADD, 0, 0};
 	}
 
 	static MathToken GetSub()
 	{
-		return MathToken{MathEnum::OPERATOR, 0, 0, MathEnum::SUB};
+		return MathToken{MathEnum::SUB, 0, 0};
 	}
 
 	static MathToken GetMul()
 	{
-		return MathToken{MathEnum::OPERATOR, 0, 1, MathEnum::MUL};
+		return MathToken{MathEnum::MUL, 0, 1};
 	}
 
 	static MathToken GetDiv()
 	{
-		return MathToken{MathEnum::OPERATOR, 0, 1, MathEnum::DIV};
+		return MathToken{MathEnum::DIV, 0, 1};
 	}
 
 	static MathToken GetPow()
 	{
-		return MathToken{MathEnum::OPERATOR, 0, 2, MathEnum::POW};
+		return MathToken{MathEnum::POW, 0, 2};
 	}
 
 	static MathToken GetLeftParen()
 	{
-		return MathToken{MathEnum::LEFT_PAREN, 0, 0, MathEnum::LEFT_PAREN};
+		return MathToken{MathEnum::LEFT_PAREN, 0, 0};
 	}
 
 	static MathToken GetRightParen()
 	{
+		return MathToken{MathEnum::RIGHT_PAREN, 0, 0};
+	}
 
-		return MathToken{MathEnum::RIGHT_PAREN, 0, 0, MathEnum::LEFT_PAREN};
+	static bool IsOperator(MathToken token)
+	{
+		return token.type == MathEnum::ADD || token.type == MathEnum::SUB || token.type == MathEnum::MUL || token.type == MathEnum::DIV || token.type == MathEnum::POW;
 	}
 };

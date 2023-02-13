@@ -1,6 +1,6 @@
 #include "CalculatorApplication.hpp"
 
-CalculatorApplication::CalculatorApplication(IO _io) : io(_io) {}
+// CalculatorApplication::CalculatorApplication() {}
 
 void CalculatorApplication::OnBoot()
 {
