@@ -42,7 +42,8 @@ typedef enum class MathEnum
 	ADD,
 	SUB,
 	MUL,
-	DIV
+	DIV,
+	POW
 } MathEnum;
 
 class MathToken
@@ -70,11 +71,27 @@ public:
 
 	static MathToken GetMul()
 	{
-		return MathToken{MathEnum::OPERATOR, 0, 0, MathEnum::MUL};
+		return MathToken{MathEnum::OPERATOR, 0, 1, MathEnum::MUL};
 	}
 
 	static MathToken GetDiv()
 	{
-		return MathToken{MathEnum::OPERATOR, 0, 0, MathEnum::DIV};
+		return MathToken{MathEnum::OPERATOR, 0, 1, MathEnum::DIV};
+	}
+
+	static MathToken GetPow()
+	{
+		return MathToken{MathEnum::OPERATOR, 0, 2, MathEnum::POW};
+	}
+
+	static MathToken GetLeftParen()
+	{
+		return MathToken{MathEnum::LEFT_PAREN, 0, 0, MathEnum::LEFT_PAREN};
+	}
+
+	static MathToken GetRightParen()
+	{
+
+		return MathToken{MathEnum::RIGHT_PAREN, 0, 0, MathEnum::LEFT_PAREN};
 	}
 };

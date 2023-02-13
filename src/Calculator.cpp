@@ -12,7 +12,7 @@ double Calculator::ComputeInput(std::array<MathToken, MAX_INPUT_SIZE> tokenInput
 	std::stack<MathToken> operatorStack;
 	std::queue<MathToken> outputQueue;
 
-	for (unsigned int i = 0; i < 5; i++)
+	for (unsigned int i = 0; i < 15; i++)
 	{
 		MathToken token = tokenInputs.at(i);
 		if (token.type == MathEnum::NUMBER)
@@ -25,7 +25,7 @@ double Calculator::ComputeInput(std::array<MathToken, MAX_INPUT_SIZE> tokenInput
 		}
 		else if (token.type == MathEnum::OPERATOR)
 		{
-			while (operatorStack.top().type != MathEnum::LEFT_PAREN && operatorStack.top().precedence >= token.precedence)
+			while (!operatorStack.empty() && operatorStack.top().type != MathEnum::LEFT_PAREN && operatorStack.top().precedence >= token.precedence)
 			{
 				outputQueue.push(operatorStack.top());
 				operatorStack.pop();
@@ -44,6 +44,9 @@ double Calculator::ComputeInput(std::array<MathToken, MAX_INPUT_SIZE> tokenInput
 				outputQueue.push(operatorStack.top());
 				operatorStack.pop();
 			}
+
+			assert(operatorStack.top().type == MathEnum::LEFT_PAREN);
+			operatorStack.pop();
 		}
 	}
 
@@ -79,7 +82,21 @@ double Calculator::ComputeInput(std::array<MathToken, MAX_INPUT_SIZE> tokenInput
 			{
 				std::cout << "div" << std::endl;
 			}
+			else if (token.op == MathEnum::POW)
+			{
+				std::cout << "pow" << std::endl;
+			}
+			else
+			{
+				std::cout << "unknown op" << std::endl;
+			}
 		}
+		else
+		{
+			std::cout << "what is this" << std::endl;
+		}
+
+		outputQueue.pop();
 	}
 
 	return 0;
